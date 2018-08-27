@@ -1,0 +1,25 @@
+{
+  "name": "jenkinswatcher",
+  "version": "1.0.0",
+  "description": "An app to help you on checking your (or not) jobs running on Jenkins\u001b[5;5~\u001b[1;5D\u001b[1;5D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Dan Jenkins server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagocardoso1988/jenkinswatcher.git"
+  },
+  "keywords": [
+    "jenkins",
+    "electron",
+    "python",
+    "javascript"
+  ],
+  "author": "Thiago Cardoso",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thiagocardoso1988/jenkinswatcher/issues"
+  },
+  "homepage": "https://github.com/thiagocardoso1988/jenkinswatcher#readme"
+}
