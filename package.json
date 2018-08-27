@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/thiagocardoso1988/jenkinswatcher/issues"
   },
-  "homepage": "https://github.com/thiagocardoso1988/jenkinswatcher#readme"
+  "homepage": "https://github.com/thiagocardoso1988/jenkinswatcher#readme",
+  "devDependencies": {
+    "electron": "^2.0.8"
+  }
 }
