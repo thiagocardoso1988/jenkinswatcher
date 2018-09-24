@@ -88,12 +88,12 @@
           <table class="table table-sm table-hover">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Type</th>
-                <th scope="col">ID</th>
-                <th scope="col">Status</th>
-                <th scope="col">Last Update</th>
-                <th scope="col">Actions</th>
+                <th scope="col" class="">#</th>
+                <th scope="col" class="">Type</th>
+                <th scope="col" class="">ID</th>
+                <th scope="col" class="">Status</th>
+                <th scope="col" class="">Last Update</th>
+                <th scope="col" class="">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -106,6 +106,7 @@
                 <td>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
                   <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
@@ -118,6 +119,7 @@
                 <td>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
                   <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
@@ -130,6 +132,7 @@
                 <td>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
                   <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
@@ -142,6 +145,7 @@
                 <td>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
                   <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
@@ -154,6 +158,7 @@
                 <td>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
                   <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
@@ -189,7 +194,8 @@
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="inputEmail4">Update Interval</label>
-                      <input type="text" name="inputEmail4" data-provide="slider" data-slider-tooltip="true">
+                      <input id="ex6" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="3"/>
+                      <span id="ex6CurrentSliderValLabel">Current Slider Value: <span id="ex6SliderVal">3</span></span>
                     </div>
                     <div class="form-group col-md-3">
                       <label for="inputState">Clear Done Jobs</label>
@@ -249,6 +255,10 @@
     <script type="text/javascript">
       $(document).ready(function() {
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+      });
+      $("#ex6").slider();
+      $("#ex6").on("slide", function(slideEvt) {
+        $("#ex6SliderVal").text(slideEvt.value);
       });
     </script>
   </body>
