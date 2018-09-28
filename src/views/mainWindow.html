@@ -31,11 +31,8 @@
             </span>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group">
-            <button class="btn btn-outline-light btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open in Github"><i class="fab fa-github fa-fw"></i> v0.1.0</button>
+            <button id="btnUpdateAll" class="btn btn-success btn-sm"><i class="fa fa-play"></i> Update</button>
           </div>
-          <!--<div class="btn-group mr-2" role="group" aria-label="Second group">
-            <button class="btn btn-success btn-sm"><i class="fa fa-play"></i> Execute</button>
-          </div>-->
         </div>
       </div>
     </nav>
@@ -83,83 +80,89 @@
         </div>
       </div> -->
       <!-- table view -->
-      <div class="row">
+      <div class="row mx-3">
         <div class="col-md-12">
           <table class="table table-sm table-hover">
             <thead>
-              <tr>
-                <th scope="col" class="">#</th>
-                <th scope="col" class="">Type</th>
-                <th scope="col" class="">ID</th>
-                <th scope="col" class="">Status</th>
-                <th scope="col" class="">Last Update</th>
-                <th scope="col" class="">Actions</th>
+              <tr class="row">
+                <th scope="col" class="col-1">#</th>
+                <th scope="col" class="col-3">Type</th>
+                <th scope="col" class="col-1">ID</th>
+                <th scope="col" class="col-2">Owner</th>
+                <th scope="col" class="col-1">Status</th>
+                <th scope="col" class="col-2">Last Update</th>
+                <th scope="col" class="col-2">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>finance_targethost_install</td>
-                <td>9225</td>
-                <td><span class="badge btn-block badge-info">In Progress</span></td>
-                <td>24/09/2018 22:35:12</td>
-                <td>
+              <tr class="row">
+                <th class="col-1" scope="row">1</th>
+                <td class="col-3">finance_targethost_install</td>
+                <td class="col-1">9225</td>
+                <td class="col-2">zthihen</td>
+                <td class="col-1"><span class="badge btn-block badge-primary">In Progress</span></td>
+                <td class="col-2">24/09/2018 22:35:12</td>
+                <td class="col-2">
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test1" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
+                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>finance_targethost_install</td>
-                <td>9225</td>
-                <td><span class="badge btn-block badge-success">Success</span></td>
-                <td>24/09/2018 22:35:12</td>
-                <td>
+              <tr class="row">
+                <th class="col-1" scope="row">1</th>
+                <td class="col-3">finance_targethost_install</td>
+                <td class="col-1">9225</td>
+                <td class="col-2">zthihen</td>
+                <td class="col-1"><span class="badge btn-block badge-success">Success</span></td>
+                <td class="col-2">24/09/2018 22:35:12</td>
+                <td class="col-2">
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test2" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
+                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>finance_targethost_install</td>
-                <td>9225</td>
-                <td><span class="badge btn-block badge-warning">Unstable</span></td>
-                <td>24/09/2018 22:35:12</td>
-                <td>
+              <tr class="row">
+                <th class="col-1" scope="row">1</th>
+                <td class="col-3">finance_targethost_install</td>
+                <td class="col-1">9225</td>
+                <td class="col-2">zthihen</td>
+                <td class="col-1"><span class="badge btn-block badge-warning">Unstable</span></td>
+                <td class="col-2">24/09/2018 22:35:12</td>
+                <td class="col-2">
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test3" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
+                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>finance_targethost_install</td>
-                <td>9225</td>
-                <td><span class="badge btn-block badge-secondary">Waiting</span></td>
-                <td>24/09/2018 22:35:12</td>
-                <td>
+              <tr class="row">
+                <th class="col-1" scope="row">1</th>
+                <td class="col-3">finance_targethost_install</td>
+                <td class="col-1">9225</td>
+                <td class="col-2">zthihen</td>
+                <td class="col-1"><span class="badge btn-block badge-light">Waiting</span></td>
+                <td class="col-2">24/09/2018 22:35:12</td>
+                <td class="col-2">
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test4" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
+                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>finance_targethost_install</td>
-                <td>9225</td>
-                <td><span class="badge btn-block badge-danger">Error</span></td>
-                <td>24/09/2018 22:35:12</td>
-                <td>
+              <tr class="row">
+                <th class="col-1" scope="row">1</th>
+                <td class="col-3">finance_targethost_install</td>
+                <td class="col-1">9225</td>
+                <td class="col-2">zthihen</td>
+                <td class="col-1"><span class="badge btn-block badge-danger">Error</span></td>
+                <td class="col-2">24/09/2018 22:35:12</td>
+                <td class="col-2">
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="far fa-trash-alt"></i></button>
+                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test5" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
+                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -194,7 +197,7 @@
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="inputEmail4">Update Interval</label>
-                      <input id="ex6" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="3"/>
+                      <input id="ex6" type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="3"/>
                       <span id="ex6CurrentSliderValLabel">Current Slider Value: <span id="ex6SliderVal">3</span></span>
                     </div>
                     <div class="form-group col-md-3">
@@ -249,6 +252,17 @@
         </div>
       </div>
     </main>
+    <!-- footer view -->
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Next full update in <span id="nextUdpateTimer"></span></span>
+        <div class="float-right">
+          <a href="https://www.github.com/thiagocardoso1988/jenkinswatcher" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open in Github">
+            <i class="fab fa-github fa-fw"></i> v0.1.0
+          </a>
+        </div>
+      </div>
+    </footer>
     <!-- scripts -->
     <script type="text/javascript" src="../js/main.js"></script>
     <script type="text/javascript" src="../js/bootstrap-slider.js"></script>
@@ -256,6 +270,7 @@
       $(document).ready(function() {
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
       });
+      // https://seiyria.com/bootstrap-slider/
       $("#ex6").slider();
       $("#ex6").on("slide", function(slideEvt) {
         $("#ex6SliderVal").text(slideEvt.value);
