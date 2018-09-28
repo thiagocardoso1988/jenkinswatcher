@@ -1,6 +1,8 @@
 window.jQuery = window.$ = require('jquery');
 require('popper.js');
 require('bootstrap');
+require('../js/utils.js');
+require('../js/jobs.js');
 
 
 
@@ -75,3 +77,32 @@ copyJaneBtn.addEventListener('click', function(event) {
   copyTextToClipboard('Jane');
 });
 */
+
+
+/** save credentials *****************************************************/
+$("body").on("click", "#saveSettings", function(evt) {
+  evt.preventDefault()
+  console.log('ok')
+  setCredentials($("#inputUsername").val(), $("#inputPassword").val(), $("#inputJenkinsURL").val())
+})
+
+
+let runJobs = () => {
+  if (!isCredentialsEmpty()) {
+    // console.log("ok")
+    addBsAlert('success', 'teste')
+  } else {
+    // console.log("oh no")
+    addBsAlert('warning', 'teste')
+  }
+}
+
+$("body").on("click", "#addJob", function(evt) {
+  let url = $("#jobURL").val()
+  appendJob(url)
+  $("#jobURL").val("")
+})
+
+let rendererJobs = () => {
+  let jobs = getJobs()
+}

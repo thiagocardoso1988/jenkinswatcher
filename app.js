@@ -84,3 +84,16 @@ if (process.env.NODE_ENV !== 'production')
         ]
     })
 }
+
+
+
+
+
+
+// 
+// var jenkinsapi = require('jenkins-api');
+// jenkins = jenkinsapi.init("http://zthihen:Nsv6rta_5@fin.epk.ericsson.se/jenkins/");
+// jenkins.all_jobs(function(err, data) {
+//   if (err){ return console.log(err); }
+//   console.log(data)
+// });

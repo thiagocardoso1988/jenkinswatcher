@@ -38,6 +38,7 @@
     </nav>
     <!-- content view -->
     <main role="main" class="container-fluid">
+      <span id="alert-area"></span>
       <!-- filter view -->
       <!--<div class="row mb-3">
         <div class="col-md-12">
@@ -107,6 +108,7 @@
                   <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
                   <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test1" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
                   <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
+                  <button type="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Show detailed info"><i class="fas fa-info"></i></button>
                 </td>
               </tr>
               <tr class="row">
@@ -175,52 +177,56 @@
         <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Settings</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputEmail4">Username</label>
-                      <input type="text" class="form-control" id="inputEmail4" placeholder="Username">
+              <form class="form">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Settings</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputUsername">Username</label>
+                        <input type="text" class="form-control" id="inputUsername" placeholder="Username" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                      </div>
+                      <div class="form-group col-md-12">
+                        <label for="inputPassword">Jenkins Base URL</label>
+                        <input type="url" class="form-control" id="inputJenkinsURL" placeholder="http(s)://...">
+                      </div>
                     </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputPassword4">Password</label>
-                      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputEmail4">Update Interval</label>
-                      <input id="ex6" type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="3"/>
-                      <span id="ex6CurrentSliderValLabel">Current Slider Value: <span id="ex6SliderVal">3</span></span>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label for="inputState">Clear Done Jobs</label>
-                      <select id="inputState" class="form-control">
-                        <option selected>Yes</option>
-                        <option>No</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label for="inputState">Save Data</label>
-                      <select id="inputState" class="form-control">
-                        <option selected>Yes</option>
-                        <option>No</option>
-                      </select>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
+                    <!-- <hr>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Update Interval</label>
+                        <input id="ex6" type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="3"/>
+                        <span id="ex6CurrentSliderValLabel">Current Slider Value: <span id="ex6SliderVal">3</span></span>
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="inputState">Clear Done Jobs</label>
+                        <select id="inputState" class="form-control">
+                          <option selected>Yes</option>
+                          <option>No</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="inputState">Save Data</label>
+                        <select id="inputState" class="form-control">
+                          <option selected>Yes</option>
+                          <option>No</option>
+                        </select>
+                      </div>
+                    </div> -->
+                </div>
+                <div class="modal-footer">
+                  <!-- <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                  <button type="button" id="saveSettings" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -238,14 +244,14 @@
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-12">
-                      <label for="inputEmail4">Jenkins Job URL</label>
-                      <input type="url" class="form-control" id="inputEmail4" placeholder="http://...">
+                      <label for="jobURL">Jenkins Job URL</label>
+                      <input type="url" class="form-control" id="jobURL" placeholder="http://...">
                     </div>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Add</button>
+                <button type="button" id="addJob" data-dismiss="modal" class="btn btn-primary">Add</button>
               </div>
             </div>
           </div>
@@ -255,7 +261,7 @@
     <!-- footer view -->
     <footer class="footer">
       <div class="container">
-        <span class="text-muted">Next full update in <span id="nextUdpateTimer"></span></span>
+        <!-- <span class="text-muted">Next full update in <span id="nextUdpateTimer"></span></span> -->
         <div class="float-right">
           <a href="https://www.github.com/thiagocardoso1988/jenkinswatcher" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open in Github">
             <i class="fab fa-github fa-fw"></i> v0.1.0
@@ -264,17 +270,18 @@
       </div>
     </footer>
     <!-- scripts -->
-    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/jobs.js"></script>
     <script type="text/javascript" src="../js/bootstrap-slider.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/utils.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
       });
-      // https://seiyria.com/bootstrap-slider/
-      $("#ex6").slider();
-      $("#ex6").on("slide", function(slideEvt) {
-        $("#ex6SliderVal").text(slideEvt.value);
-      });
+      // $("#ex6").slider();
+      // $("#ex6").on("slide", function(slideEvt) {
+      //   $("#ex6SliderVal").text(slideEvt.value);
+      // });
     </script>
   </body>
 </html>
