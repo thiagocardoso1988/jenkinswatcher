@@ -22,8 +22,16 @@ let isJenkinsAvailable = () => { return jenkins != null }
 
 let appendJob = (url) => {
   if (!isJobAdded(url)) {
-    jobs.push(createJobEntry(url))
+    let job = createJobEntry(url);
+    console.log('appendJob', job);
+    jobs.push(job)
   }
+  // return new Promise( (res, rej) => {
+  //   jenkins.console_output('finance_targethost_install', '9355', function(err, data) {
+  //     if (err) return rej(err)
+  //     return res(data)
+  //   })
+  // })
 }
 
 /**
@@ -31,11 +39,11 @@ let appendJob = (url) => {
  * @param  {String}  url url to be checked
  * @return {Boolean}     true if the url already exists
  */
-let isJobAdded = (url) => {
+const isJobAdded = (url) => {
   return jobs.filter(e => e.url === url).length > 0
 }
 
-let parseJobURL = (url) => {
+const parseJobURL = (url) => {
   let regexstr = '.*/job/(.*)/([0-9]+)'
   let result = url.match(regexstr)
   return {'url': url, 'jobname': result[1], 'jobid': result[2]}
@@ -44,32 +52,67 @@ let parseJobURL = (url) => {
 let createJobEntry = (url) => {
   let jobparse = parseJobURL(url)
   if (isJenkinsAvailable()) {
-    jenkins.build_info(jobparse['jobname'], jobparse['jobid'], function(err, data) {
-      if (err){ return console.log(err); }
-      return parseBuildInfo(data, jobparse)
-    });
+    getBuildInfo(jobparse['jobname'], jobparse['jobid'])
+      .then( (result) => {
+        return parseBuildInfo(result, jobparse)
+      })
+    // jenkins.build_info(jobparse['jobname'], jobparse['jobid'], function(err, data) {
+    //   if (err){ return console.log(err); }
+    //   return parseBuildInfo(data, jobparse)
+    // });
   }
 }
 
+let getBuildInfo = (jobname, jobid) => {
+  return new Promise( (res, rej) => {
+    jenkins.build_info(jobname, jobid, function(err, data) {
+      if (err) return rej(err)
+      return res(data)
+    })
+  })
+}
+
 let parseBuildInfo = (response, jobdata) => {
-  jobdata.owner = response.actions[0].causes[0].userId
-  jobdata.estimatedDuration = response.estimatedDuration
-  jobdata.duration = response.duration
-  jobdata.progress = parseInt(response.duration)/parseInt(response.estimatedDuration)
-  jobdata.createdIn = new Date(response.timestamp)
-  jobdata.result = response.result
-  jobdata.buildInfo = response.actions[2].parameters.reduce(function(m,v){m[v.name] = v.value; return m;}, {})
-  jobdata.tapaslink = getBuildTapasLink(jobdata['jobname'], jobdata['jobid'])
-  return jobdata
+  return new Promise( (resolve, reject) => {
+    jobdata.owner = response.actions[0].causes[0].userId
+    jobdata.estimatedDuration = response.estimatedDuration
+    jobdata.duration = response.duration
+    jobdata.progress = parseInt(response.duration)/parseInt(response.estimatedDuration)
+    jobdata.createdIn = new Date(response.timestamp)
+    jobdata.result = response.result
+    jobdata.buildInfo = response.actions[2].parameters.reduce(function(m,v){m[v.name] = v.value; return m;}, {})
+    // jobdata.tapaslink = getBuildTapasLink(jobdata['jobname'], jobdata['jobid'])
+    return resolve(jobdata)
+  })
+  // jobdata.owner = response.actions[0].causes[0].userId
+  // jobdata.estimatedDuration = response.estimatedDuration
+  // jobdata.duration = response.duration
+  // jobdata.progress = parseInt(response.duration)/parseInt(response.estimatedDuration)
+  // jobdata.createdIn = new Date(response.timestamp)
+  // jobdata.result = response.result
+  // jobdata.buildInfo = response.actions[2].parameters.reduce(function(m,v){m[v.name] = v.value; return m;}, {})
+  // // jobdata.tapaslink = getBuildTapasLink(jobdata['jobname'], jobdata['jobid'])
+  // console.log("parseBuildInfo", jobdata)
+  //
+  // return jobdata
 }
 
 let getBuildTapasLink = (jobname, jobid) => {
   let regexstr = 'Web url: (https://tapas.epk.ericsson.se/#.*)'
-  jenkins.console_output(jobname, jobid, function(err, data) {
-    if (err){ return console.log(err); }
-    let result = data.body.match(regexstr)
-    return (result != "") ? result[1] : ""
-  });
+  // jenkins.console_output(jobname, jobid, function(err, data) {
+  //   if (err){ return console.log(err); }
+  //   let result = data.body.match(regexstr)
+  //   console.log(result)
+  //   return (result != "") ? result[1] : ""
+  // });
+
+  return new Promise( (res, rej) => {
+    jenkins.console_output(jobname, jobid, function(err, data) {
+      if (err) return rej(err)
+      // return res(data)
+      return res(data.body.match(regexstr))
+    })
+  })
 }
 
 let getJobs = () => {

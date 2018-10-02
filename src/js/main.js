@@ -3,6 +3,7 @@ require('popper.js');
 require('bootstrap');
 require('../js/utils.js');
 require('../js/jobs.js');
+// require('../js/test.js');
 
 
 
