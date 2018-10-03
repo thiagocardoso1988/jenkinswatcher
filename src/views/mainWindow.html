@@ -173,8 +173,9 @@
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-12">
-                      <label for="jobURL">Jenkins Job URL</label>
-                      <input type="url" class="form-control" id="jobURL" placeholder="http://...">
+                      <label for="jobURL">Jenkins Job URL <small class="text-muted">For multiple URLs, separate them with a semicolon.</small></label>
+                      <textarea class="form-control" id="jobURL" rows="3" placeholder="http://..."></textarea>
+                      <!-- <input type="url" class="form-control" id="jobURL" placeholder="http://..."> -->
                     </div>
                   </div>
                 </form>
@@ -185,6 +186,7 @@
             </div>
           </div>
         </div>
+        <!-- Show Job Detailed Info -->
       </div>
     </main>
     <!-- footer view -->
