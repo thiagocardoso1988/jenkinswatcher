@@ -83,7 +83,6 @@ copyJaneBtn.addEventListener('click', function(event) {
 /** save credentials *****************************************************/
 $("body").on("click", "#saveSettings", function(evt) {
   evt.preventDefault()
-  console.log('ok')
   setCredentials($("#inputUsername").val(), $("#inputPassword").val(), $("#inputJenkinsURL").val())
 })
 
@@ -99,9 +98,11 @@ let runJobs = () => {
 }
 
 $("body").on("click", "#addJob", function(evt) {
-  let url = $("#jobURL").val()
-  appendJob(url)
-  $("#jobURL").val("")
+  let urls = $("#jobURL").val().split(";")
+  for (let url of urls) {
+    appendJob(url)
+  }
+  $("#jobURL").attr("style", "").val("")
 })
 
 let rendererJobs = () => {
@@ -154,3 +155,12 @@ let rendererJobs = () => {
   $('#jobs tbody').html("")
   addJobRow(jobs)
 }
+
+/** delete job entry *****************************************************/
+$("body").on("click", ".delete-job-btn", function(evt) {
+  evt.preventDefault()
+  console.log($(this).parent())
+  console.log($(this).parent().siblings())
+  console.log($(this).parent().siblings(".jobtype"))
+  console.log($(this).parent().siblings(".jobid"))
+})
