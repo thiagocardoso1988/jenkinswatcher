@@ -105,5 +105,52 @@ $("body").on("click", "#addJob", function(evt) {
 })
 
 let rendererJobs = () => {
-  let jobs = getJobs()
+
+  let jobs = [{
+    jobname: "test",
+    jobid: 1,
+    owner: "test1",
+    estimatedDuration: "test1",
+    duration: "test1",
+    progress: 0.97841364,
+    createdIn: "test1",
+    result: "ABORTED",
+    buildInfo: "test1",
+    tapaslink: "test1"
+  },{
+    jobname: "test",
+    jobid: 2,
+    owner: "test2",
+    estimatedDuration: "test2",
+    duration: "test2",
+    progress: 0.78346,
+    createdIn: "test2",
+    result: "UNSTABLE",
+    buildInfo: "test2",
+    tapaslink: "test2"
+  },{
+    jobname: "test",
+    jobid: 3,
+    owner: "test2",
+    estimatedDuration: "test2",
+    duration: "test2",
+    progress: 1.78346,
+    createdIn: "test2",
+    result: "SUCCESS",
+    buildInfo: "test2",
+    tapaslink: "test2"
+  },{
+    jobname: "test",
+    jobid: 3,
+    owner: "test2",
+    estimatedDuration: "test2",
+    duration: "test2",
+    progress: 1,
+    createdIn: "test2",
+    result: "SUCCESS",
+    buildInfo: "test2",
+    tapaslink: "test2"
+  }]
+  $('#jobs tbody').html("")
+  addJobRow(jobs)
 }

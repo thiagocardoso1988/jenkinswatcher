@@ -83,90 +83,19 @@
       <!-- table view -->
       <div class="row mx-3">
         <div class="col-md-12">
-          <table class="table table-sm table-hover">
+          <table id="jobs" class="table table-sm table-hover">
             <thead>
               <tr class="row">
-                <th scope="col" class="col-1">#</th>
-                <th scope="col" class="col-3">Type</th>
+                <th scope="col" class="col-2">Created In</th>
+                <th scope="col" class="col-2">Type</th>
                 <th scope="col" class="col-1">ID</th>
                 <th scope="col" class="col-2">Owner</th>
                 <th scope="col" class="col-1">Status</th>
-                <th scope="col" class="col-2">Last Update</th>
+                <th scope="col" class="col-2">Progress</th>
                 <th scope="col" class="col-2">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr class="row">
-                <th class="col-1" scope="row">1</th>
-                <td class="col-3">finance_targethost_install</td>
-                <td class="col-1">9225</td>
-                <td class="col-2">zthihen</td>
-                <td class="col-1"><span class="badge btn-block badge-primary">In Progress</span></td>
-                <td class="col-2">24/09/2018 22:35:12</td>
-                <td class="col-2">
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test1" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
-                  <button type="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Show detailed info"><i class="fas fa-info"></i></button>
-                </td>
-              </tr>
-              <tr class="row">
-                <th class="col-1" scope="row">1</th>
-                <td class="col-3">finance_targethost_install</td>
-                <td class="col-1">9225</td>
-                <td class="col-2">zthihen</td>
-                <td class="col-1"><span class="badge btn-block badge-success">Success</span></td>
-                <td class="col-2">24/09/2018 22:35:12</td>
-                <td class="col-2">
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test2" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
-                </td>
-              </tr>
-              <tr class="row">
-                <th class="col-1" scope="row">1</th>
-                <td class="col-3">finance_targethost_install</td>
-                <td class="col-1">9225</td>
-                <td class="col-2">zthihen</td>
-                <td class="col-1"><span class="badge btn-block badge-warning">Unstable</span></td>
-                <td class="col-2">24/09/2018 22:35:12</td>
-                <td class="col-2">
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test3" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
-                </td>
-              </tr>
-              <tr class="row">
-                <th class="col-1" scope="row">1</th>
-                <td class="col-3">finance_targethost_install</td>
-                <td class="col-1">9225</td>
-                <td class="col-2">zthihen</td>
-                <td class="col-1"><span class="badge btn-block badge-light">Waiting</span></td>
-                <td class="col-2">24/09/2018 22:35:12</td>
-                <td class="col-2">
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test4" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
-                </td>
-              </tr>
-              <tr class="row">
-                <th class="col-1" scope="row">1</th>
-                <td class="col-3">finance_targethost_install</td>
-                <td class="col-1">9225</td>
-                <td class="col-2">zthihen</td>
-                <td class="col-1"><span class="badge btn-block badge-danger">Error</span></td>
-                <td class="col-2">24/09/2018 22:35:12</td>
-                <td class="col-2">
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Fetch status"><i class="fas fa-sync-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Open job"><i class="fas fa-external-link-alt"></i></button>
-                  <button type="button" class="btn btn-outline-dark btn-sm js-copy-btn" copy-link="test5" data-toggle="tooltip" data-placement="bottom" title="Copy Tapas link"><i class="far fa-copy"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Unfollow this job"><i class="far fa-trash-alt"></i></button>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
