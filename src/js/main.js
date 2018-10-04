@@ -4,7 +4,10 @@ require('bootstrap');
 require('../js/utils.js');
 require('../js/jobs.js');
 // require('../js/test.js');
+var shell = require('electron').shell;
 
+const REFRESH_INTERVAL = 10 * 1000 // refresh interval for fetch new data over the added jobs
+const DELETE_OPERATION = false // ensures that when a deletion is happening, no update will proceed
 
 
 
@@ -86,6 +89,21 @@ $("body").on("click", "#saveSettings", function(evt) {
   setCredentials($("#inputUsername").val(), $("#inputPassword").val(), $("#inputJenkinsURL").val())
 })
 
+$("body").on("click", "#btnUpdateAll", function(evt) {
+  evt.preventDefault()
+  refreshJobs()
+})
+
+let refreshJobs = () => {
+  // if (jobs.length > 0 && !DELETE_OPERATION) {
+    updateJobs()
+    rendererJobs()
+  // }
+}
+
+let addMissingCredAlert = () => {
+  addBsAlert("danger", 'You need to set your credentials before proceding. <a href="#" data-toggle="modal" data-target="#settingsModal" class="alert-link">Click here</a> to set it.')
+}
 
 let runJobs = () => {
   if (!isCredentialsEmpty()) {
@@ -98,69 +116,101 @@ let runJobs = () => {
 }
 
 $("body").on("click", "#addJob", function(evt) {
-  let urls = $("#jobURL").val().split(";")
-  for (let url of urls) {
-    appendJob(url)
+  if (!isCredentialsEmpty()) {
+    let urls = $("#jobURL").val().split(";")
+    addJobs(urls)
+  } else {
+    addMissingCredAlert()
   }
   $("#jobURL").attr("style", "").val("")
 })
 
-let rendererJobs = () => {
+// async function addJobs (urls) {
+//   console.log(urls)
+  // for (let url of urls) {
+  //   appendJob(url)
+  // }
+// }
 
-  let jobs = [{
-    jobname: "test",
-    jobid: 1,
-    owner: "test1",
-    estimatedDuration: "test1",
-    duration: "test1",
-    progress: 0.97841364,
-    createdIn: "test1",
-    result: "ABORTED",
-    buildInfo: "test1",
-    tapaslink: "test1"
-  },{
-    jobname: "test",
-    jobid: 2,
-    owner: "test2",
-    estimatedDuration: "test2",
-    duration: "test2",
-    progress: 0.78346,
-    createdIn: "test2",
-    result: "UNSTABLE",
-    buildInfo: "test2",
-    tapaslink: "test2"
-  },{
-    jobname: "test",
-    jobid: 3,
-    owner: "test2",
-    estimatedDuration: "test2",
-    duration: "test2",
-    progress: 1.78346,
-    createdIn: "test2",
-    result: "SUCCESS",
-    buildInfo: "test2",
-    tapaslink: "test2"
-  },{
-    jobname: "test",
-    jobid: 3,
-    owner: "test2",
-    estimatedDuration: "test2",
-    duration: "test2",
-    progress: 1,
-    createdIn: "test2",
-    result: "SUCCESS",
-    buildInfo: "test2",
-    tapaslink: "test2"
-  }]
+let addJobs = async (urls) => {
+  // let jobs = await addJobs('t')
+  for (let url of urls) {
+    let job = await appendJob(url)
+  }
+}
+
+let rendererJobs = () => {
   $('#jobs tbody').html("")
   addJobRow(jobs)
 }
 
-/** delete job entry *****************************************************/
-$("body").on("click", ".delete-job-btn", function(evt) {
+let getJobById = (id) => {
+  console.log(id);
+  return jobs.find( j => { return parseInt(j.jobid) == parseInt(id) })
+}
+
+
+let showJobInfo = (job) => {
+  console.log(job)
+  let jobinfo
+  $("#jobInfoModal #jobInfoTitle").html("Job "+job.jobid)
+  try {
+    console.log(job.buildInfo)
+    jobinfo = job.buildInfo.reduce(function(m,v){m[v.name] = v.value; return m;}, {})
+  } catch (e) {
+    jobinfo = "No info available"
+  }
+  $("#jobInfoModal pre").html(JSON.stringify(jobinfo, null, 2))
+  // $("#jobInfoModal").modal(show=true)
+}
+
+/**
+ * Calls function to show job information when clicking button info
+ * @param  {Event} evt click-event information
+ * @return {Null}
+ */
+$("body").on("click", ".job-info-btn", function(evt) {
   evt.preventDefault()
-  console.log($(this).parent())
-  console.log($(this).parent().siblings())
-  console.log($(this).parent().siblings(".jobtype"))
-  console.log($(this).parent().siblings(".jobid"))
+  let jobid = $(this).parent().siblings(".jobid").text()
+  let job = getJobById(jobid)
+  showJobInfo(job)
+})
+
+/**
+ * Calls function for update jobs info on screen continuously
+ * @return {Null}
+ */
+setInterval(function() {
+  console.info('Scheduled jobs refresh')
+  refreshJobs()
+}, REFRESH_INTERVAL)
+
+/**
+ * Get job information and open the job url in a new native browser
+ * @param  {Event} evt click-event information
+ * @return {Null}
+ */
+$("body").on("click", ".open-new-window-btn", function(evt) {
+ evt.preventDefault()
+ let jobid = $(this).parent().siblings(".jobid").text()
+ let job = getJobById(jobid)
+ shell.openExternal(job.url)
+})
+
+$("body").on("click", ".delete-job-btn", function(evt) {
+  // DELETE_OPERATION=!DELETE_OPERATION
+  evt.preventDefault()
+  let jobid = $(this).parent().siblings(".jobid").text()
+  let job = getJobById(jobid)
+  // for (var idx in jobs) {
+  //   console.log(idx, jobs[idx], job.jobid)
+  //   if (jobs[idx].jobid == job.jobid) {
+  //     jobs.splice(idx, 1)
+  //   }
+  // }
+  let idx = jobs.indexOf(job)
+  console.log('idx', idx)
+  jobs.splice(idx, 1)
+  refreshJobs()
+  // DELETE_OPERATION=!DELETE_OPERATION
 })

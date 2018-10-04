@@ -11,7 +11,6 @@ function setJenkinsLogin () {
           .replace('{{user}}', credentials.user)
           .replace('{{pass}}', credentials.password)
           .replace('{{url}}', credentials.baseurl)
-  console.log('connString',connString)
   jenkins = jenkinsapi.init(connString);
 }
 
@@ -43,15 +42,14 @@ function getCredentials () {
  * @return {Boolean} true if jenkins object is not null
  */
 function isJenkinsAvailable () {
-  console.log('jenkins != null', jenkins != null)
   return jenkins != null
 }
 
-function appendJob (url) {
+async function appendJob (url) {
   if (!isJobAdded(url) && isJenkinsAvailable()) {
     let job = createJobEntry(url).then( (info) => {
-      console.log(info)
       jobs.push(info)
+      rendererJobs()
     })
   }
 }
@@ -73,8 +71,23 @@ function parseJobURL (url) {
 
 async function createJobEntry (url) {
   let jobparse = parseJobURL(url)
-  let rawinfo = await getBuildInfo(jobparse['jobname'], jobparse['jobid'])
-  let info = await parseBuildInfo(rawinfo, jobparse)
+  return getJobInfo(jobparse)
+}
+
+async function updateJobs () {
+  console.log('updateJobs')
+  if (isJenkinsAvailable()) {
+    for (let job of jobs) {
+      console.log(job.jobid);
+      job = getJobInfo(job)
+      rendererJobs()
+    }
+  }
+}
+
+async function getJobInfo (jobdata) {
+  let rawinfo = await getBuildInfo(jobdata['jobname'], jobdata['jobid'])
+  let info = await parseBuildInfo(rawinfo, jobdata)
   return info
 }
 
@@ -88,21 +101,48 @@ function getBuildInfo (jobname, jobid) {
 }
 
 function parseBuildInfo (response, jobdata) {
-  // console.log('parseBuildInfo', jobdata)
+  console.log(response)
   return new Promise( (resolve, reject) => {
-    jobdata.owner = response.actions[0].causes[0].userId
+    jobdata.owner = getJobOwner(response)
     jobdata.estimatedDuration = response.estimatedDuration
-    jobdata.duration = response.duration
-    jobdata.progress = parseInt(response.duration)/parseInt(response.estimatedDuration)
+    jobdata.duration = (response.duration==0) ? parseInt(new Date().getTime()-response.timestamp) : parseInt(response.duration)
+    jobdata.progress = jobdata.duration/jobdata.estimatedDuration
     jobdata.createdIn = new Date(response.timestamp)
-    jobdata.result = response.result
-    jobdata.buildInfo = response.actions[2].parameters.reduce(function(m,v){m[v.name] = v.value; return m;}, {})
+    jobdata.result = (response.building) ? 'BUILDING' : response.result
+    // jobdata.buildInfo = getJobBuildParameters(response).reduce(function(m,v){m[v.name] = v.value; return m;}, {})
+    jobdata.buildInfo = getJobBuildParameters(response)
     // jobdata.tapaslink = await getBuildTapasLink(jobdata['jobname'], jobdata['jobid'])
     getBuildTapasLink(jobdata['jobname'], jobdata['jobid']).then( data => {
       jobdata.tapaslink = data
     })
+    console.log(jobdata);
     return resolve(jobdata)
   })
+}
+
+/**
+ * Find the object that contains the user who started the jobs
+ * @param  {Array}  response response object returned by Jenkins API
+ * @return {Object}          user data object
+ */
+function getJobOwner (response) {
+  for (let action of response.actions) {
+    if (action._class != undefined
+          && action.causes != undefined
+          && action.causes[0].userId != undefined) {
+      return action.causes[0]
+    }
+  }
+}
+
+function getJobBuildParameters (response) {
+  for (let action of response.actions) {
+    if (action._class != undefined
+          && action.parameters != undefined
+          && action.parameters.length > 0) {
+      return action.parameters
+    }
+  }
 }
 
 function getBuildTapasLink (jobname, jobid) {
