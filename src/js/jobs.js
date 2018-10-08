@@ -1,5 +1,9 @@
+const path = require('path')
 var _ = require('lodash');
 var jenkinsapi = require('jenkins-api');
+const notifier = require('node-notifier');
+const consts = require(path.join(path.parse(__dirname).dir, '..', 'consts.js'))
+
 
 let credentials = {}
 let jobs = []
@@ -75,14 +79,36 @@ async function createJobEntry (url) {
 }
 
 async function updateJobs () {
-  console.log('updateJobs')
+  // console.log('updateJobs')
   if (isJenkinsAvailable()) {
     for (let job of jobs) {
-      console.log(job.jobid);
+      // console.log(job.jobid);
       job = getJobInfo(job)
+
       rendererJobs()
     }
   }
+}
+
+let parseJobNotifiation = (job) => {
+  if (job.result != 'BUILDING' && (job.notified == undefined || job.notified == false)) {
+    job.notified = true
+    let title = "Jenkins Watcher"
+    let msg = "Job "+job.jobid+" new status: "+job.result
+    showNotification(title, msg)
+  }
+}
+
+let showNotification = (title, message) => {
+  console.log(path.parse(__dirname))
+  console.log(consts)
+  notifier.notify({
+    title: title,
+    message: message,
+    icon: consts.APPICON
+    // icon: 'C:/Users/tcardoso/Dropbox/Projs/jenkinswatcher/assets/icons/png/256x256.png'
+  })
+
 }
 
 async function getJobInfo (jobdata) {
@@ -101,7 +127,7 @@ function getBuildInfo (jobname, jobid) {
 }
 
 function parseBuildInfo (response, jobdata) {
-  console.log(response)
+  // console.log(response)
   return new Promise( (resolve, reject) => {
     jobdata.owner = getJobOwner(response)
     jobdata.estimatedDuration = response.estimatedDuration
@@ -115,7 +141,7 @@ function parseBuildInfo (response, jobdata) {
     getBuildTapasLink(jobdata['jobname'], jobdata['jobid']).then( data => {
       jobdata.tapaslink = data
     })
-    console.log(jobdata);
+    // console.log(jobdata);
     return resolve(jobdata)
   })
 }

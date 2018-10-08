@@ -145,17 +145,17 @@ let rendererJobs = () => {
 }
 
 let getJobById = (id) => {
-  console.log(id);
+  // console.log(id);
   return jobs.find( j => { return parseInt(j.jobid) == parseInt(id) })
 }
 
 
 let showJobInfo = (job) => {
-  console.log(job)
+  // console.log(job)
   let jobinfo
   $("#jobInfoModal #jobInfoTitle").html("Job "+job.jobid)
   try {
-    console.log(job.buildInfo)
+    // console.log(job.buildInfo)
     jobinfo = job.buildInfo.reduce(function(m,v){m[v.name] = v.value; return m;}, {})
   } catch (e) {
     jobinfo = "No info available"
@@ -209,7 +209,7 @@ $("body").on("click", ".delete-job-btn", function(evt) {
   //   }
   // }
   let idx = jobs.indexOf(job)
-  console.log('idx', idx)
+  // console.log('idx', idx)
   jobs.splice(idx, 1)
   refreshJobs()
   // DELETE_OPERATION=!DELETE_OPERATION

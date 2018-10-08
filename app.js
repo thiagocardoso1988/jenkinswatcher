@@ -1,6 +1,7 @@
 const electron = require('electron')
 const url = require('url')
 const path = require('path')
+const mainIcon = path.join(__dirname, 'assets/icons/png/256x256.png')
 
 let {app, BrowserWindow, Menu} = electron
 
@@ -14,7 +15,7 @@ app.on('ready', function () {
             minWidth: 1100,
             minHeight: 600,
             center: true,
-            icon: path.join(__dirname, 'assets/icons/png/256x256.png')
+            icon: mainIcon
         })
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'src', 'views', 'mainWindow.html'),
@@ -84,16 +85,3 @@ if (process.env.NODE_ENV !== 'production')
         ]
     })
 }
-
-
-
-
-
-
-// 
-// var jenkinsapi = require('jenkins-api');
-// jenkins = jenkinsapi.init("http://zthihen:Nsv6rta_5@fin.epk.ericsson.se/jenkins/");
-// jenkins.all_jobs(function(err, data) {
-//   if (err){ return console.log(err); }
-//   console.log(data)
-// });
